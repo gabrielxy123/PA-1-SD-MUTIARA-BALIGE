@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel as ModelsArtikel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Http\Artikel;
+
 
 class ArtikelController extends Controller
 {
@@ -54,8 +55,8 @@ class ArtikelController extends Controller
     // Menampilkan halaman ubah artikel
     public function edit($id)
     {
-        $artikel = ModelsArtikel::findOrFail($id);
-        return view('admin.artikel.ubah', compact('artikel'));
+        $artikel = DB::table('artikels')->where('id', $id)->get();
+        return view('admin.artikel.ubah',['artikel' => $artikel]);
     }
 
     // Menyimpan perubahan pada artikel
